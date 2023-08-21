@@ -4,8 +4,122 @@
     <meta charset="UTF-8">
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    gap: 10px;
+}
+.register-form{
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border-radius: 10px;
+}
+.register-main
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:100px;
+}
+.login-div ,  .register-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.register-label{
+    font-size: 20px;
+    font-weight: 400;
+}
+.register-1{
+    gap:6px;
+}
+
+    </style>
 </head>
     <body>
-    <!--Add a registration form here -->
+        <div class="container register-main">
+            <div class="register-form">
+                <form method="post" action="{% url 'djangoapp:registration_request'%}">
+                    {% csrf_token %}
+                    <div class="register-header p-4">
+                        <h1>Register</h1>
+                    </div>
+                    <hr/>
+                    <div class="register">
+                        <div>
+                            <div>
+                                <label class="form-label register-label">Email</label>
+                            </div>
+                            <div>
+                                <input class="form-control" type="email" placeholder="Email" name="email"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label register-label">Username</label>
+                            </div>
+                            <div>
+                                <input class="form-control" type="text" placeholder="Username" name="username" minlength="8" maxlength="12"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="register">
+                        <div>
+                            <div>
+                                <label class="form-label register-label">Password</label>
+                            </div>
+                            <div>
+                                <input class="form-control" type="password" placeholder="Password" name="password" minlength="12" maxlength="20" id="password"/>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label register-label">Re-Enter Password</label>
+                            </div>
+                            <div>
+                                <input class="form-control" type="password" placeholder="Password" name="password" minlength="12" maxlength="20" id="re-password"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="register-1">
+                        <div>
+                            
+                        </div>
+                        <div class="p-3">
+                            <input  type="checkbox" class="value1" onclick="showpassword(   )"/>
+                            <span>Show Password</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary form-control" >Submit</button>
+                    </div>
+                    <div class="login-div p-3">
+                        <span>Already member?</span><a href="{% url 'djangoapp:index'%}">Sign In</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            function showpassword(){
+                x = document.getElementById("password")
+                y = document.getElementById("re-password")
+                if(x.type == "password" || y.type === "password")
+                {
+                    x.type = "text";
+                    y.type = "text";
+                }
+                else{
+                    x.type = "password";
+                    y.type = "password";   
+                }
+            }
+            </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    
     </body>
 </html>

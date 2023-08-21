@@ -34,17 +34,51 @@ def contact(request):
         return render(request , 'djangoapp/contact.html' , context)
 
 # Create a `login_request` view to handle sign in request
-# def login_request(request):
-# ...
+def login_request(request):
+    context = {}
+    if request.method == 'POST':
+        username = request.POST['Username']
+        password = request.POST['Password']
+
+        user = authenticate(username=username , password = password)
+        if user is not None:
+            login(request,user)
+            return render(request,"djangoapp/index.html",context)
+        else:
+            return render(request,"djangoapp/index.html",context)
+    else:
+        return render(request,"djangoapp/index.html",context)
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
+def logout_request(request):
+    print(f"User is logged out {request.user.username}")
+    logout(request)
+    return redirect("djangoapp:index")
+    
 
 # Create a `registration_request` view to handle sign up request
-# def registration_request(request):
-# ...
-
+def registration_request(request):
+    context={}
+    if request.method == 'GET':
+        return render(request ,'djangoapp/registration.html',context)
+    elif request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        user_exits = False
+        try:
+            User.object.get(username=username)
+            user_exits = True
+        except:
+            logger.debug(f"{username} is a new user")
+        if not user_exits:
+            user = User.objects.create_user(username=username,password=password,email=email)
+            login(request,user)
+            return redirect('djangoapp:index')
+        else:
+            return render(request,'djangoapp/registration.html',context)
+    else:
+        return render(request,'djangoapp/registration.html',context)
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
     context = {}
